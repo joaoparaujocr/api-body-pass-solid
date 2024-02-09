@@ -1,0 +1,17 @@
+import 'dotenv/config'
+import { z } from 'zod'
+
+const envSchema = z.object({
+	ENVIRONMENT: z.enum(['develop', 'staging', 'production']).default('develop'),
+	PORT: z.coerce.number().default(3333)
+})
+
+const env = envSchema.safeParse(process.env)
+
+if (!env.success) {
+	console.log('Error environment variables', env.error.format)
+
+	throw new Error('Invalid environment')
+}
+
+export default env.data
