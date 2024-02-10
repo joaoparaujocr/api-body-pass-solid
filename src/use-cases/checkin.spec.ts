@@ -4,23 +4,22 @@ import { CheckInsUseCase } from './checkin'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { Gym } from 'prisma/prisma-client'
 import { AppError } from '@/error/appError'
-import { Decimal } from '@prisma/client/runtime/library'
 
 let checkInsRepository: InMemoryCheckInsRespository
 let gymsRepository: InMemoryGymsRepository
 let checkInUseCase: CheckInsUseCase
 let gymCreate: Gym
 
-describe('Resgister Use Case', () => {
+describe('Checkin Use Case', () => {
 	beforeEach(async () => {
 		checkInsRepository = new InMemoryCheckInsRespository()
 		gymsRepository = new InMemoryGymsRepository()
 		checkInUseCase = new CheckInsUseCase(checkInsRepository, gymsRepository)
 
 		gymCreate = await gymsRepository.create({
-			latitude: new Decimal(-3.100634), longitude: new Decimal(-60.0653841),
+			latitude: -3.100634,
+			longitude: -60.0653841,
 			title: 'Javascript academy',
-			phone: ''
 		})
 
 		vi.useFakeTimers()
@@ -59,10 +58,8 @@ describe('Resgister Use Case', () => {
 	it('It should not be possible to check in from a certain distance', async () => {
 		const gymCreate2 = await gymsRepository.create({
 			title: 'Gym 2',
-			latitude: new Decimal(-27.0747279),
-			longitude: new Decimal(-49.4889672),
-			description: 'test',
-			phone: ''
+			latitude: -27.0747279,
+			longitude: -49.4889672
 		})
 
 		await expect(() => checkInUseCase.execute({

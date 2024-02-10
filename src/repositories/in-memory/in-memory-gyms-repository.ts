@@ -1,6 +1,7 @@
 import { Gym, Prisma } from 'prisma/prisma-client'
 import { GymsRepository } from '../interfaces/gyms-repository'
 import { randomUUID } from 'node:crypto'
+import { Decimal } from '@prisma/client/runtime/library'
 
 export class InMemoryGymsRepository implements GymsRepository {
 	gyms: Gym[] = []
@@ -18,12 +19,12 @@ export class InMemoryGymsRepository implements GymsRepository {
 	async create(date: Prisma.GymCreateInput) {
 		const gym = {
 			id: randomUUID(),
-			description: date.description,
-			latitude: date.latitude,
-			longitude: date.longitude,
-			phone: date.phone,
+			description: date.description ?? null,
+			latitude: new Decimal(date.latitude.toString()),
+			longitude: new Decimal(date.longitude.toString()),
+			phone: date.phone ?? null,
 			title: date.title
-		} as Gym
+		}
 
 		this.gyms.push(gym)
 
