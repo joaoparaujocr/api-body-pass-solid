@@ -7,21 +7,21 @@ let checkInsRepository: CheckInsRepository
 let getUserMetricsUseCase: GetUserMetricsUseCase
 
 describe('Get User Metrics Use Case', () => {
-	beforeEach(() => {
-		checkInsRepository = new InMemoryCheckInsRespository()
-		getUserMetricsUseCase = new GetUserMetricsUseCase(checkInsRepository)
-	})
+  beforeEach(() => {
+    checkInsRepository = new InMemoryCheckInsRespository()
+    getUserMetricsUseCase = new GetUserMetricsUseCase(checkInsRepository)
+  })
 
-	it('should be possible to search for user checkin metrics', async () => {
-		for (let i = 1; i <= 5; i++) {
-			await checkInsRepository.create({
-				user_id: 'user-01',
-				gym_id: `gym-${i}`
-			})
-		}
+  it('should be possible to search for user checkin metrics', async () => {
+    for (let i = 1; i <= 5; i++) {
+      await checkInsRepository.create({
+        user_id: 'user-01',
+        gym_id: `gym-${i}`
+      })
+    }
 
-		const { count } = await getUserMetricsUseCase.execute('user-01')
+    const { count } = await getUserMetricsUseCase.execute('user-01')
 
-		expect(count).toBe(5)
-	})
+    expect(count).toBe(5)
+  })
 })
