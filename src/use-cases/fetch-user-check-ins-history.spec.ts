@@ -19,7 +19,7 @@ describe('Fetch User Checkins History Use Case', () => {
 			})
 		}
 
-		const { checkIns } = await fetchUserCheckInsHistoryUseCase.execute('user-1', 1)
+		const { checkIns } = await fetchUserCheckInsHistoryUseCase.execute('user-1')
 
 		expect(checkIns).toHaveLength(2)
 		expect(checkIns).toEqual([
@@ -36,7 +36,7 @@ describe('Fetch User Checkins History Use Case', () => {
 			})
 		}
 
-		const { checkIns: checkInsPageOne } = await fetchUserCheckInsHistoryUseCase.execute('user-1', 1)
+		const { checkIns: checkInsPageOne } = await fetchUserCheckInsHistoryUseCase.execute('user-1')
 		const { checkIns: checkInsPageTwo } = await fetchUserCheckInsHistoryUseCase.execute('user-1', 2)
 
 		expect(checkInsPageOne).toHaveLength(20)
