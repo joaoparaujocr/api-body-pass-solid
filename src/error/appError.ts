@@ -1,5 +1,3 @@
 export class AppError {
-	constructor(public statusCode: number, public message: string, public issue?: string) {
-
-	}
+	constructor(public statusCode: number, public message: string, public issue?: string) { }
 }
