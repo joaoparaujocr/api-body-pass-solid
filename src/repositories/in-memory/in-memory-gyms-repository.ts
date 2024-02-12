@@ -39,7 +39,6 @@ export class InMemoryGymsRepository implements GymsRepository {
 	async findGymsNearby(params: Coordinates) {
 		return this.gyms.filter(({ latitude, longitude }) => {
 			const distance = getDistanceBetweenCoordinates(params, { latitude: latitude.toNumber(), longitude: longitude.toNumber() })
-			console.log(distance)
 			return distance < 10
 		})
 	}
