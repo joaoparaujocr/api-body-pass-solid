@@ -12,7 +12,7 @@ export async function nearby(request: FastifyRequest, reply: FastifyReply) {
     }),
   })
 
-  const query = nearbyGymsQuerySchema.parse(request.body)
+  const query = nearbyGymsQuerySchema.parse(request.query)
 
   const searchNearbyGymsUseCase = makeSearchNearbyGymsUseCase()
 
