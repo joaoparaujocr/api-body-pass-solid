@@ -4,10 +4,10 @@ import { z } from "zod";
 
 export async function nearby(request: FastifyRequest, reply: FastifyReply) {
   const nearbyGymsQuerySchema = z.object({
-    latitude: z.number().refine(number => {
+    latitude: z.coerce.number().refine(number => {
       return Math.abs(number) <= 90
     }),
-    longitude: z.number().refine(number => {
+    longitude: z.coerce.number().refine(number => {
       return Math.abs(number) <= 180
     }),
   })

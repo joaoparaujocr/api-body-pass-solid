@@ -5,12 +5,12 @@ import { z } from "zod";
 export async function create(request: FastifyRequest, reply: FastifyReply) {
   const createGymBodySchema = z.object({
     title: z.string(),
-    description: z.string().nullable(),
-    phone: z.string().nullable(),
-    latitude: z.number().refine(number => {
+    description: z.string().nullable().nullish(),
+    phone: z.string().nullable().nullish(),
+    latitude: z.coerce.number().refine(number => {
       return Math.abs(number) <= 90
     }),
-    longitude: z.number().refine(number => {
+    longitude: z.coerce.number().refine(number => {
       return Math.abs(number) <= 180
     }),
   })

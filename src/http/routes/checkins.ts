@@ -5,7 +5,7 @@ import { JWTVerify } from "../middlewares/jwt-verify";
 import { metrics } from "../controllers/check-ins/metrics";
 import { validate } from "../controllers/check-ins/validate";
 
-export async function checkinsRoutes(app: FastifyInstance) {
+export async function checkInsRoutes(app: FastifyInstance) {
   app.addHook("onRequest", JWTVerify)
 
   app.post("/gyms/:gymId/checkins", create)
