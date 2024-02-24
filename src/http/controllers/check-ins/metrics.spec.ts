@@ -1,19 +1,18 @@
 import { describe, it, beforeAll, afterAll, expect } from "vitest"
-import request from "supertest"
 import { app } from "@/app"
+import request from "supertest"
 import { createUserAndAuthentication } from "@/utils/test/create-user"
 import { prisma } from "@/lib/prisma"
 
-describe("Checkins - history (E2E)", () => {
+describe("Checkins - metrics (E2E)", () => {
   beforeAll(async () => {
     await app.ready()
   })
-
   afterAll(async () => {
     await app.close()
   })
 
-  it("should be possible to list the user's checkin history", async () => {
+  it("should be possible to return the checkin count", async () => {
     const { response: { body: { token } } } = await createUserAndAuthentication(app)
 
     const { body: user } = await request(app.server).get("/me").send().set("Authorization", `Bearer ${token}`)
@@ -36,19 +35,8 @@ describe("Checkins - history (E2E)", () => {
       }]
     })
 
-    const response = await request(app.server).get("/checkins/history").send().set("Authorization", `Bearer ${token}`)
+    const { body: { count } } = await request(app.server).get("/checkins/metrics").send().set("Authorization", `Bearer ${token}`)
 
-    expect(response.status).toBe(200)
-    expect(response.body.checkIns).toHaveLength(2)
-    expect(response.body.checkIns).toEqual([
-      expect.objectContaining({
-        gym_id: gym.id,
-        user_id: user.id
-      }),
-      expect.objectContaining({
-        gym_id: gym.id,
-        user_id: user.id
-      }),
-    ])
+    expect(count).toBe(2)
   })
 })
