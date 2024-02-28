@@ -13,7 +13,7 @@ describe("Gyms - create (E2E)", () => {
   })
 
   it("should be possible to create an academy", async () => {
-    const { response: { body: { token } } } = await createUserAndAuthentication(app)
+    const { response: { body: { token } } } = await createUserAndAuthentication(app, 'ADMIN')
 
     const response = await request(app.server).post("/gyms").send({
       title: 'Javascript academy',

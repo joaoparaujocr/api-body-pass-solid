@@ -13,7 +13,7 @@ describe("Gyms - nearby (E2E", () => {
   })
 
   it("It should be possible to look for a nearby gym", async () => {
-    const { response: responseToken } = await createUserAndAuthentication(app)
+    const { response: responseToken } = await createUserAndAuthentication(app, 'ADMIN')
 
     const token = responseToken.body.token
 

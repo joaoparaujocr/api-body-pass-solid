@@ -13,7 +13,7 @@ describe("Checkins - validate (E2E)", () => {
   })
 
   it("should be possible to validate a checkin", async () => {
-    const { response: { body: { token } } } = await createUserAndAuthentication(app)
+    const { response: { body: { token } } } = await createUserAndAuthentication(app, 'ADMIN')
 
     const { body: user } = await request(app.server).get("/me").send().set("Authorization", `Bearer ${token}`)
 
